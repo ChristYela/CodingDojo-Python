@@ -1,0 +1,44 @@
+-- SELECT * FROM amistades;
+-- SELECT * FROM usuarios;
+
+
+INSERT INTO usuarios (nombre, apellido)
+VALUES ("Carlos","Diaz"),("Daniel","Rodriguez"),("Diana","Garcia"),("Francisco","Lancheros"),("Ronaldo","Carvalho"),("Lisa","Simpson");
+
+
+-- SELECT * FROM usuarios;
+
+
+INSERT INTO amistades (usuario_id,amigo_id)
+VALUES (1,2),(1,4),(1,6),(2,1),(2,3),(2,5),(3,2),(3,5),(4,3),(5,1),(5,6),(6,2),(6,3);
+
+
+-- SELECT * FROM amistades;
+
+
+SELECT usuarios.nombre, usuarios.apellido, usuarios2.nombre as "Nombre del amigo", usuarios2.apellido as "Apellido del amigo" FROM usuarios
+JOIN amistades ON usuarios.id = amistades.usuario_id
+LEFT JOIN usuarios as usuarios2 ON usuarios2.id = amistades.amigo_id;
+
+
+SELECT usuarios2.nombre as "Nombre del amigo", usuarios2.apellido as "Apellido del amigo", usuarios.nombre as "Amigo", usuarios.apellido as "de" FROM usuarios
+JOIN amistades ON usuarios.id = amistades.usuario_id
+LEFT JOIN usuarios as usuarios2 ON usuarios2.id = amistades.amigo_id
+WHERE usuarios.id = 1;
+
+
+SELECT COUNT(*) as "Numero de amistades" from amistades;
+
+
+SELECT usuario_id, usuarios.nombre, usuarios.apellido, count(usuario_id) as "Numero de amistades" from amistades
+JOIN usuarios ON usuarios.id = amistades.usuario_id
+GROUP BY usuario_id
+ORDER BY "Numero de amistades" DESC
+LIMIT 1;
+
+
+SELECT usuarios2.nombre as "Nombre del amigo", usuarios2.apellido as "Apellido del amigo", usuarios.nombre as "Amigo", usuarios.apellido as "de" FROM usuarios
+JOIN amistades ON usuarios.id = amistades.usuario_id
+LEFT JOIN usuarios as usuarios2 ON usuarios2.id = amistades.amigo_id
+WHERE usuarios.id = 3
+ORDER BY "Nombre";
